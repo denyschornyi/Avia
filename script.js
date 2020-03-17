@@ -8,28 +8,29 @@ const  formSearch = document.querySelector('.form-search'),
 
 const city = ['Moskow', 'Kiev', 'Warsaw', 'Lublin', 'Gdansk' , 'New York', 'Paris', 'Milan', 'Washington D.C.' , 'Wroclaw', 'Lviv','London'];
 
-inputCitiesFrom.addEventListener('input', () => {
-    dropdownCitiesFrom.textContent = '';
-
-    if(inputCitiesFrom.value !== ''){
+const showCity = (input, list) =>{
+    list.textContent = '';
+    if(input.value !== ''){
         const filterCity = city.filter((item) =>{ 
             const fixItem = item.toLowerCase();   
-            return fixItem.includes(inputCitiesFrom.value.toLowerCase());   
+            return fixItem.includes(input.value.toLowerCase());   
         });
     
         filterCity.forEach((item) => {
             const li = document.createElement('li');
             li.classList.add('dropdown__city');
             li.textContent = item;
-            dropdownCitiesFrom.append(li);
+            list.append(li);
      
         });
-    }else{
-      
     }
+};
 
+inputCitiesFrom.addEventListener('input', () => {
+    showCity(inputCitiesFrom, dropdownCitiesFrom);
+});
 
-
-    
-}); 
+// inputCitiesTo.addEventListener('input', () =>{
+//     showCity(inputCitiesTo, dropdownCitiesTo);
+// });
 
