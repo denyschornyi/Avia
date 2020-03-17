@@ -9,10 +9,27 @@ const  formSearch = document.querySelector('.form-search'),
 const city = ['Moskow', 'Kiev', 'Warsaw', 'Lublin', 'Gdansk' , 'New York', 'Paris', 'Milan', 'Washington D.C.' , 'Wroclaw', 'Lviv','London'];
 
 inputCitiesFrom.addEventListener('input', () => {
-    const filterCity = city.filter((item) =>{ // filter похожа функція до forEach
-        const fixItem = item.toLowerCase();   // Якщо ми вводимо в інпут n(маленька буква н), то нам не показує New York(бо буква Н написана з великої), для цього всі букви переводимо в нижній регістр
-        return fixItem.includes(inputCitiesFrom.value.toLowerCase());   // вертаємо масив городів, з тими буквами, які ми ввели
-    });
+    dropdownCitiesFrom.textContent = '';
+
+    if(inputCitiesFrom.value !== ''){
+        const filterCity = city.filter((item) =>{ 
+            const fixItem = item.toLowerCase();   
+            return fixItem.includes(inputCitiesFrom.value.toLowerCase());   
+        });
+    
+        filterCity.forEach((item) => {
+            const li = document.createElement('li');
+            li.classList.add('dropdown__city');
+            li.textContent = item;
+            dropdownCitiesFrom.append(li);
+     
+        });
+    }else{
+      
+    }
+
+
+
     
 }); 
 
