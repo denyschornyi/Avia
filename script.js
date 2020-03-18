@@ -26,14 +26,6 @@ const showCity = (input, list) =>{
     }
 };
 
-inputCitiesFrom.addEventListener('input', () => {
-    showCity(inputCitiesFrom, dropdownCitiesFrom);
-});
-
-inputCitiesTo.addEventListener('input', () =>{
-    showCity(inputCitiesTo, dropdownCitiesTo);
-});
-
 const hideCity = (e, input, list) =>{
     const target = e.target;
     if(target.tagName.toLowerCase() === 'li'){
@@ -42,6 +34,13 @@ const hideCity = (e, input, list) =>{
     }
 };
 
+inputCitiesFrom.addEventListener('input', () => {
+    showCity(inputCitiesFrom, dropdownCitiesFrom);
+});
+
+inputCitiesTo.addEventListener('input', () =>{
+    showCity(inputCitiesTo, dropdownCitiesTo);
+});
 
 dropdownCitiesFrom.addEventListener('click', (event) => {  
     hideCity(event,inputCitiesFrom, dropdownCitiesFrom );
