@@ -5,10 +5,10 @@ const  formSearch = document.querySelector('.form-search'),
         dropdownCitiesTo = document.querySelector('.dropdown__cities-to'),
         inputDateDepart = document.querySelector('.input__date-depart');
 
-const citiesApi = 'dataBase/cities.json',
+const citiesApi = 'http://api.travelpayouts.com/data/ru/cities.json',
      proxy = 'https://cors-anywhere.herokuapp.com/';
 
-const city = ['Moskow', 'Kiev', 'Warsaw', 'Lublin', 'Gdansk' , 'New York', 'Paris', 'Milan', 'Washington D.C.' , 'Wroclaw', 'Lviv','London'];
+let city = [];
 
 const getData = (url , callback) => {
     const request = new XMLHttpRequest();
@@ -34,14 +34,16 @@ const showCity = (input, list) =>{   //Show list of cities from dropdown
     list.textContent = '';
     if(input.value !== ''){
         const filterCity = city.filter((item) =>{ 
-            const fixItem = item.toLowerCase();   
-            return fixItem.includes(input.value.toLowerCase());   
+            if(item.name){
+                const fixItem = item.name.toLowerCase();   
+                return fixItem.includes(input.value.toLowerCase());   
+            }
         });
     
         filterCity.forEach((item) => {
             const li = document.createElement('li');
             li.classList.add('dropdown__city');
-            li.textContent = item;
+            li.textContent = item.name;
             list.append(li);
      
         });
@@ -73,6 +75,6 @@ dropdownCitiesTo.addEventListener('click', (event) => {
 });
 
 
-getData(citiesApi, (data) => {
-    console.log(data);
+getData(proxy + citiesApi, (data) => {
+     city = JSON.parse(data);
 });
