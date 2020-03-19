@@ -6,7 +6,9 @@ const  formSearch = document.querySelector('.form-search'),
         inputDateDepart = document.querySelector('.input__date-depart');
 
 const citiesApi = 'http://api.travelpayouts.com/data/ru/cities.json',
-     proxy = 'https://cors-anywhere.herokuapp.com/';
+     proxy = 'https://cors-anywhere.herokuapp.com/',
+     API_KEY = 'e87d7ee4e8d2e59db0f0b444fbba80d4',
+     calendar = 'http://min-prices.aviasales.ru/calendar_preload';
 
 let city = [];
 
@@ -76,7 +78,11 @@ dropdownCitiesTo.addEventListener('click', (event) => {
 
 
 getData(proxy + citiesApi, (data) => {
-     city = JSON.parse(data).filter((item) => {
-        return item.name;
-     });
+     city = JSON.parse(data).filter(item => item.name);
 });
+
+/*
+    (item) => {
+        return item.name;
+    }
+*/
