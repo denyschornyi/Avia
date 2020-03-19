@@ -5,7 +5,7 @@ const  formSearch = document.querySelector('.form-search'),
         dropdownCitiesTo = document.querySelector('.dropdown__cities-to'),
         inputDateDepart = document.querySelector('.input__date-depart');
 
-const citiesApi = 'http://api.travelpayouts.com/data/ru/cities.json',
+const citiesApi = 'dataBase/cities.json',
      proxy = 'https://cors-anywhere.herokuapp.com/';
 
 const city = ['Moskow', 'Kiev', 'Warsaw', 'Lublin', 'Gdansk' , 'New York', 'Paris', 'Milan', 'Washington D.C.' , 'Wroclaw', 'Lviv','London'];
