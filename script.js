@@ -5,10 +5,32 @@ const  formSearch = document.querySelector('.form-search'),
         dropdownCitiesTo = document.querySelector('.dropdown__cities-to'),
         inputDateDepart = document.querySelector('.input__date-depart');
 
+const citiesApi = 'http://api.travelpayouts.com/data/ru/cities.json',
+     proxy = 'https://cors-anywhere.herokuapp.com/';
 
 const city = ['Moskow', 'Kiev', 'Warsaw', 'Lublin', 'Gdansk' , 'New York', 'Paris', 'Milan', 'Washington D.C.' , 'Wroclaw', 'Lviv','London'];
 
-const showCity = (input, list) =>{
+const getData = (url , callback) => {
+    const request = new XMLHttpRequest();
+
+    request.open('GET', url);
+
+    request.addEventListener('readystatechange', () =>{  //answer from server
+        if(request.readyState !== 4) return;
+
+        if(request.status == 200 ){
+            callback(request.response);
+        }else{
+            console.error(request.status);
+        }
+    });
+
+    request.send();
+};
+
+
+
+const showCity = (input, list) =>{   //Show list of cities from dropdown
     list.textContent = '';
     if(input.value !== ''){
         const filterCity = city.filter((item) =>{ 
@@ -26,8 +48,8 @@ const showCity = (input, list) =>{
     }
 };
 
-const hideCity = (e, input, list) =>{
-    const target = e.target;
+const hideCity = (event, input, list) =>{ //Hide the dropdown list after choosen city and put choosen city to input
+    const target = event.target;
     if(target.tagName.toLowerCase() === 'li'){
         input.value = target.textContent;
         list.textContent = '';
@@ -48,4 +70,9 @@ dropdownCitiesFrom.addEventListener('click', (event) => {
 
 dropdownCitiesTo.addEventListener('click', (event) => {
     hideCity(event,inputCitiesTo, dropdownCitiesTo);
+});
+
+
+getData(citiesApi, (data) => {
+    console.log(data);
 });
