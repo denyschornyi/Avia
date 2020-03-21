@@ -67,6 +67,20 @@ const hideCity = (event, input, list) =>{ //Hide the dropdown list after choosen
         list.textContent = '';
     }
 };
+const getDate = (date) =>{
+    return new Date(date).toLocaleString('ru', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    }); //Function what show time in your on country local time
+};
+
+const getNameCity = (code) =>{
+    objCity = city.find((item) => item.code === code);
+    return objCity.name;
+};
 
 const getChanges = (num) => {
     if(num){
@@ -92,15 +106,15 @@ const createCard = (data) =>{
                 <div class="right-side">
                     <div class="block-left">
                         <div class="city__from">Depart from
-                            <span class="city__name">${data.origin}</span>
+                            <span class="city__name">${getNameCity(data.origin)}</span>
                         </div>
-                        <div class="date">${data.depart_date}</div>
+                        <div class="date">${getDate(data.depart_date)}</div>
                     </div>
             
                     <div class="block-right">
                         <div class="changes">${getChanges(data.number_of_changes)}</div>
                         <div class="city__to">Destination City:
-                            <span class="city__name">${data.destination}</span>
+                            <span class="city__name">${getNameCity(data.destination)}</span>
                         </div>
                     </div>
                 </div>
@@ -167,6 +181,8 @@ dropdownCitiesTo.addEventListener('click', (event) => {
 formSearch.addEventListener('submit', (event) => {
     event.preventDefault();
 
+    cheapestTicket.textContent = ''; // Clear double text
+    otherCheapTickets.textContent = '';  // Clear useful article
     const cityFrom = city.find((item) => inputCitiesFrom.value === item.name),
           cityTo = city.find((item) => inputCitiesTo.value === item.name);
 
