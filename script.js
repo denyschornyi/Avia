@@ -75,24 +75,24 @@ const createCard = (data) =>{
     let deep = '';
     if(data){
         deep = `
-        <h3 class="agent">Aviakassa</h3>
+        <h3 class="agent">${data.gate}</h3>
             <div class="ticket__wrapper">
                 <div class="left-side">
-                    <a href="https://www.aviasales.ru/search/SVX2905KGD1" class="button button__buy">Купить
-                        за 19700₽</a>
+                    <a href="https://www.aviasales.ru/search/SVX2905KGD1" class="button button__buy">Buy
+                        for ${data.value}₽</a>
                 </div>
                 <div class="right-side">
                     <div class="block-left">
-                        <div class="city__from">Вылет из города
-                            <span class="city__name">Екатеринбург</span>
+                        <div class="city__from">Depart from
+                            <span class="city__name">${data.origin}</span>
                         </div>
-                        <div class="date">29 мая 2020 г.</div>
+                        <div class="date">${data.depart_date}</div>
                     </div>
             
                     <div class="block-right">
-                        <div class="changes">Без пересадок</div>
-                        <div class="city__to">Город назначения:
-                            <span class="city__name">Калининград</span>
+                        <div class="changes">Without transfer</div>
+                        <div class="city__to">Destination City:
+                            <span class="city__name">${data.destination}</span>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,9 @@ const createCard = (data) =>{
 
 const renderCheapDay = (cheapTicket) => {
     const ticket = createCard(cheapTicket[0]);
-    console.log(ticket);
+
+    cheapestTicket.append(ticket);
+
 };
 
 const renderCheapYear = (cheapTickets) => {
