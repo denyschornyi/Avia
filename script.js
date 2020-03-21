@@ -48,7 +48,7 @@ const showCity = (input, list) =>{   //Show list of cities from dropdown
         });
     
         filterCity.forEach((item) => {
-            
+
             const li = document.createElement('li');
             li.classList.add('dropdown__city');
             li.textContent = item.name;
@@ -119,16 +119,20 @@ formSearch.addEventListener('submit', (event) => {
           cityTo = city.find((item) => inputCitiesTo.value === item.name);
 
     const formData =  {
-        from: cityFrom.code,
-        to: cityTo.code,
+        from: cityFrom,
+        to: cityTo,
         when: inputDateDepart.value,
     }
 
-    const requestData = `?depart_date=${formData.when}&origin=${formData.from}&destination=${formData.to}&one_way=true&token`;
+    if(formData.from && formData.to){
+        const requestData = `?depart_date=${formData.when}&origin=${formData.from.code}&destination=${formData.to.code}&one_way=true&token`;
 
-    getData(calendar + requestData, (response) => {
-        renderCheap(response, formData.when);
-    });
+        getData(calendar + requestData, (response) => {
+            renderCheap(response, formData.when);
+        });
+    }else{
+        alert('Enter correct city name');
+    }
 });
 
 
