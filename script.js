@@ -70,6 +70,16 @@ const renderCheapDay = (cheapTicket) => {
 };
 
 const renderCheapYear = (cheapTickets) => {
+    cheapTickets.sort((a,b) => {
+        if(a.value > b.value){
+            return 1;
+        }
+        if(a.value < b.value){
+            return -1;
+        }
+
+        return 0;
+    });
     console.log(cheapTickets);
 };
 
@@ -114,7 +124,6 @@ formSearch.addEventListener('submit', (event) => {
     }
 
     const requestData = `?depart_date=${formData.when}&origin=${formData.from}&destination=${formData.to}&one_way=true&token`;
-
 
     getData(calendar + requestData, (response) => {
         renderCheap(response, formData.when);
