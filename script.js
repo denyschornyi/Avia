@@ -68,6 +68,14 @@ const hideCity = (event, input, list) =>{ //Hide the dropdown list after choosen
     }
 };
 
+const getChanges = (num) => {
+    if(num){
+        return num === 1 ? 'With one transfer' : 'With two transfers';
+    }else{
+        return 'Without transfer';
+    }
+};
+
 const createCard = (data) =>{
     const ticket = document.createElement('article');
     ticket.classList.add('ticket');
@@ -90,7 +98,7 @@ const createCard = (data) =>{
                     </div>
             
                     <div class="block-right">
-                        <div class="changes">Without transfer</div>
+                        <div class="changes">${getChanges(data.number_of_changes)}</div>
                         <div class="city__to">Destination City:
                             <span class="city__name">${data.destination}</span>
                         </div>
