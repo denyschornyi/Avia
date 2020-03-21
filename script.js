@@ -48,6 +48,7 @@ const showCity = (input, list) =>{   //Show list of cities from dropdown
         });
     
         filterCity.forEach((item) => {
+            
             const li = document.createElement('li');
             li.classList.add('dropdown__city');
             li.textContent = item.name;
