@@ -5,12 +5,17 @@ const  formSearch = document.querySelector('.form-search'),
         dropdownCitiesTo = document.querySelector('.dropdown__cities-to'),
         inputDateDepart = document.querySelector('.input__date-depart');
 
-const citiesApi = 'http://api.travelpayouts.com/data/ru/cities.json',
+let city = [];
+
+
+const citiesApi = 'dataBase/cities.json',
      proxy = 'https://cors-anywhere.herokuapp.com/',
      API_KEY = 'e87d7ee4e8d2e59db0f0b444fbba80d4',
      calendar = 'http://min-prices.aviasales.ru/calendar_preload';
 
-let city = [];
+
+
+
 
 const getData = (url , callback) => {
     const request = new XMLHttpRequest();
@@ -60,6 +65,26 @@ const hideCity = (event, input, list) =>{ //Hide the dropdown list after choosen
     }
 };
 
+const renderCheapDay = (cheapTicket) => {
+    console.log(cheapTicket);
+};
+
+const renderCheapYear = (cheapTickets) => {
+    console.log(cheapTickets);
+};
+
+const renderCheap = (data, date) =>{
+    cheapTicketYear = JSON.parse(data).best_prices;
+
+    cheapTicketDay = cheapTicketYear.filter((item) => {
+        return item.depart_date === date;
+    });
+
+    renderCheapDay(cheapTicketDay);
+    renderCheapYear(cheapTicketYear);
+};
+
+
 inputCitiesFrom.addEventListener('input', () => {
     showCity(inputCitiesFrom, dropdownCitiesFrom);
 });
@@ -76,8 +101,28 @@ dropdownCitiesTo.addEventListener('click', (event) => {
     hideCity(event,inputCitiesTo, dropdownCitiesTo);
 });
 
+formSearch.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-getData(proxy + citiesApi, (data) => {
+    const cityFrom = city.find((item) => inputCitiesFrom.value === item.name),
+          cityTo = city.find((item) => inputCitiesTo.value === item.name);
+
+    const formData =  {
+        from: cityFrom.code,
+        to: cityTo.code,
+        when: inputDateDepart.value,
+    }
+
+    const requestData = `?depart_date=${formData.when}&origin=${formData.from}&destination=${formData.to}&one_way=true&token`;
+
+
+    getData(calendar + requestData, (response) => {
+        renderCheap(response, formData.when);
+    });
+});
+
+
+getData(citiesApi, (data) => {
      city = JSON.parse(data).filter(item => item.name);
 });
 
@@ -86,3 +131,4 @@ getData(proxy + citiesApi, (data) => {
         return item.name;
     }
 */
+
