@@ -41,6 +41,7 @@ const showCity = (input, list) =>{   //Show list of cities from dropdown
     list.textContent = '';
     if(input.value !== ''){
         const filterCity = city.filter((item) =>{  
+            
             const fixItem = item.name.toLowerCase();   
             return fixItem.startsWith(input.value.toLowerCase());   // Now search gonna start from letter what was typed and sort by alfabeth
             
