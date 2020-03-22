@@ -90,6 +90,31 @@ const getChanges = (num) => {
     }
 };
 
+const getLinkAiasales = (data) => {
+    let link = 'https://www.aviasales.ru/search';
+
+    link += data.origin;
+
+    const date = new Date(data.depart_date);
+
+    const day = date.getDate(); 
+
+    link += day<10 ? '0' + day : day; 
+
+    const month = date.getMonth() + 1;
+
+    link += month < 10 ? '0' + month : month;
+
+    link += data.destination; 
+
+    link += '1';
+    // SVX2905KGD1
+
+    console.log(data);
+    return link;
+    
+};
+
 const createCard = (data) =>{
     const ticket = document.createElement('article');
     ticket.classList.add('ticket');
@@ -100,7 +125,7 @@ const createCard = (data) =>{
         <h3 class="agent">${data.gate}</h3>
             <div class="ticket__wrapper">
                 <div class="left-side">
-                    <a href="https://www.aviasales.ru/search/SVX2905KGD1" class="button button__buy">Buy
+                    <a href="${getLinkAiasales(data)}" class="button button__buy">Buy
                         for ${data.value}₽</a>
                 </div>
                 <div class="right-side">
@@ -130,13 +155,16 @@ const createCard = (data) =>{
 };
 
 const renderCheapDay = (cheapTicket) => {
+    cheapestTicket.style.display = 'block';
+    cheapestTicket.innerHTML = '<h2>The cheapest ticket for the selected date</h2>'; // Clear double text
     const ticket = createCard(cheapTicket[0]);
-
     cheapestTicket.append(ticket);
 
 };
 
 const renderCheapYear = (cheapTickets) => {
+    otherCheapTickets.style.display = 'block';
+    otherCheapTickets.innerHTML = '<h2>Cheapest tickets for other dates</h2>';  // Clear useful article
     cheapTickets.sort((a,b) => {
         if(a.value > b.value){
             return 1;
@@ -181,8 +209,6 @@ dropdownCitiesTo.addEventListener('click', (event) => {
 formSearch.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    cheapestTicket.textContent = ''; // Clear double text
-    otherCheapTickets.textContent = '';  // Clear useful article
     const cityFrom = city.find((item) => inputCitiesFrom.value === item.name),
           cityTo = city.find((item) => inputCitiesTo.value === item.name);
 
