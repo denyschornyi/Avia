@@ -124,7 +124,7 @@ const createCard = (data) =>{
         <h3 class="agent">${data.gate}</h3>
             <div class="ticket__wrapper">
                 <div class="left-side">
-                    <a href="${getLinkAiasales(data)}" class="button button__buy">Buy
+                    <a href="${getLinkAiasales(data)}" target="_blank" class="button button__buy">Buy
                         for ${data.value}₽</a>
                 </div>
                 <div class="right-side">
