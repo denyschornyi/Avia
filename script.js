@@ -20,7 +20,7 @@ const citiesApi = 'dataBase/cities.json',
 
 
 
-const getData = (url , callback) => {
+const getData = (url , callback, reject = console.error) => {
     const request = new XMLHttpRequest();
 
     request.open('GET', url);
@@ -31,7 +31,7 @@ const getData = (url , callback) => {
         if(request.status == 200 ){
             callback(request.response);
         }else{
-            console.error(request.status);
+            reject(request.status);
         }
     });
 
@@ -193,7 +193,6 @@ const renderCheap = (data, date) =>{
     renderCheapYear(cheapTicketYear);
 };
 
-
 inputCitiesFrom.addEventListener('input', () => {
     showCity(inputCitiesFrom, dropdownCitiesFrom);
 });
@@ -227,6 +226,9 @@ formSearch.addEventListener('submit', (event) => {
 
         getData(calendar + requestData, (response) => {
             renderCheap(response, formData.when);
+        }, error => {
+            alert('In this way no fly');
+            console.error('Error' , error);
         });
     }else{
         alert('Enter correct city name');
