@@ -13,7 +13,8 @@ let city = [];
 const citiesApi = 'dataBase/cities.json',
      proxy = 'https://cors-anywhere.herokuapp.com/',
      API_KEY = 'e87d7ee4e8d2e59db0f0b444fbba80d4',
-     calendar = 'http://min-prices.aviasales.ru/calendar_preload';
+     calendar = 'http://min-prices.aviasales.ru/calendar_preload',
+     MAX_COUNT = 10;
 
 
 
@@ -91,7 +92,7 @@ const getChanges = (num) => {
 };
 
 const getLinkAiasales = (data) => {
-    let link = 'https://www.aviasales.ru/search';
+    let link = 'https://www.aviasales.ru/search/';
 
     link += data.origin;
 
@@ -108,9 +109,7 @@ const getLinkAiasales = (data) => {
     link += data.destination; 
 
     link += '1';
-    // SVX2905KGD1
 
-    console.log(data);
     return link;
     
 };
@@ -175,6 +174,11 @@ const renderCheapYear = (cheapTickets) => {
 
         return 0;
     });
+
+    for(let i = 0; i < cheapTickets.length && i < MAX_COUNT; i++){
+        const ticket = createCard(cheapTickets[0]);
+        otherCheapTickets.append(ticket);
+    }
     console.log(cheapTickets);
 };
 
