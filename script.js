@@ -176,7 +176,7 @@ const renderCheapYear = (cheapTickets) => {
     });
 
     for(let i = 0; i < cheapTickets.length && i < MAX_COUNT; i++){
-        const ticket = createCard(cheapTickets[0]);
+        const ticket = createCard(cheapTickets[i]);
         otherCheapTickets.append(ticket);
     }
     console.log(cheapTickets);
