@@ -5,7 +5,8 @@ const  formSearch = document.querySelector('.form-search'),
         dropdownCitiesTo = document.querySelector('.dropdown__cities-to'),
         inputDateDepart = document.querySelector('.input__date-depart'),
         cheapestTicket = document.getElementById('cheapest-ticket'),
-        otherCheapTickets = document.getElementById('other-cheap-tickets');
+        otherCheapTickets = document.getElementById('other-cheap-tickets'),
+        wrapper = document.querySelector('.wrapper');
 
 let city = [];
 
@@ -60,7 +61,6 @@ const showCity = (input, list) =>{   //Show list of cities from dropdown
         });
     }
 };
-
 const hideCity = (event, input, list) =>{ //Hide the dropdown list after choosen city and put choosen city to input
     const target = event.target;
     if(target.tagName.toLowerCase() === 'li'){
@@ -211,6 +211,7 @@ dropdownCitiesTo.addEventListener('click', (event) => {
 
 formSearch.addEventListener('submit', (event) => {
     event.preventDefault();
+    
 
     const cityFrom = city.find((item) => inputCitiesFrom.value === item.name),
           cityTo = city.find((item) => inputCitiesTo.value === item.name);
@@ -227,8 +228,8 @@ formSearch.addEventListener('submit', (event) => {
         getData(calendar + requestData, (response) => {
             renderCheap(response, formData.when);
         }, error => {
-            alert('In this way no fly');
-            console.error('Error' , error);
+            let message = ('<h3>In this way no fly</h3>');
+            noFlyInfo(error, message);
         });
     }else{
         alert('Enter correct city name');
@@ -251,3 +252,13 @@ getData(citiesApi, (data) => {
 
     console.log(city);
 });
+
+const noFlyInfo = (error , message) => {
+    const noFly = document.createElement('article');
+    noFly.classList.add('ticket');
+    
+    noFly.insertAdjacentHTML('beforeend',message );
+    wrapper.append(noFly);
+    console.log('Error', error);
+    
+}
