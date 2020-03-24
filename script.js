@@ -211,6 +211,12 @@ dropdownCitiesTo.addEventListener('click', (event) => {
     hideCity(event,inputCitiesTo, dropdownCitiesTo);
 });
 
+document.body.addEventListener('click', () => {
+    dropdownCitiesFrom.textContent = '';
+    dropdownCitiesTo.textContent = '';
+    console.log('pressed');
+});
+
 formSearch.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -235,7 +241,8 @@ formSearch.addEventListener('submit', (event) => {
             console.log('Error', error); // Вывожу ошибку в консоль
         });
     }else{
-        alert('Enter correct city name');
+        cheapestTicket.style.display = 'block';
+        cheapestTicket.innerHTML = '<h2 class ="ticket">Enter correct city name</h2>';
     }
 
     
@@ -258,8 +265,3 @@ getData(citiesApi, (data) => {
     console.log(city);
 });
 
-document.body.addEventListener('click', () => {
-    dropdownCitiesFrom.textContent = '';
-    dropdownCitiesTo.textContent = '';
-    console.log('pressed');
-});
