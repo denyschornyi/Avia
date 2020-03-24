@@ -211,7 +211,6 @@ dropdownCitiesTo.addEventListener('click', (event) => {
 
 formSearch.addEventListener('submit', (event) => {
     event.preventDefault();
-    
 
     const cityFrom = city.find((item) => inputCitiesFrom.value === item.name),
           cityTo = city.find((item) => inputCitiesTo.value === item.name);
@@ -228,12 +227,16 @@ formSearch.addEventListener('submit', (event) => {
         getData(calendar + requestData, (response) => {
             renderCheap(response, formData.when);
         }, error => {
-            let message = ('<h3>In this way no fly</h3>');
-            noFlyInfo(error, message);
+            cheapestTicket.style.display = 'block';
+		    cheapestTicket.innerHTML = '<h2 class ="ticket">In this way no fly</h2>';
+            
+            console.log('Error', error); // Вывожу ошибку в консоль
         });
     }else{
         alert('Enter correct city name');
     }
+
+    
 });
 
 
@@ -252,13 +255,3 @@ getData(citiesApi, (data) => {
 
     console.log(city);
 });
-
-const noFlyInfo = (error , message) => {
-    const noFly = document.createElement('article');
-    noFly.classList.add('ticket');
-    
-    noFly.insertAdjacentHTML('beforeend',message );
-    wrapper.append(noFly);
-    console.log('Error', error);
-    
-}
