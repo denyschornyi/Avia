@@ -8,6 +8,8 @@ const  formSearch = document.querySelector('.form-search'),
         otherCheapTickets = document.getElementById('other-cheap-tickets'),
         wrapper = document.querySelector('.wrapper');
 
+        
+
 let city = [];
 
 
@@ -254,4 +256,10 @@ getData(citiesApi, (data) => {
     });
 
     console.log(city);
+});
+
+document.body.addEventListener('click', () => {
+    dropdownCitiesFrom.textContent = '';
+    dropdownCitiesTo.textContent = '';
+    console.log('pressed');
 });
